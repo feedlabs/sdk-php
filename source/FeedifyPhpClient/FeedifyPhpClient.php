@@ -1,0 +1,14 @@
+<?php
+
+namespace FeedifyPhpClient;
+
+
+class FeedifyPhpClient {
+
+    public function __construct() {
+    }
+
+    public function test() {
+        return 'test';
+    }
+}
