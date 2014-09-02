@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpClient;
+namespace feedify;
 
 
 class PhpClient {
