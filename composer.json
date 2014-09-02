@@ -1,5 +1,5 @@
 {
-  "name": "feedlabs/feedify/agent",
+  "name": "feedlabs/feedify",
   "license": "MIT",
   "autoload": {
     "psr-0": {
