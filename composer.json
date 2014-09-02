@@ -1,5 +1,5 @@
 {
-  "name": "feedlabs/sdk-php",
+  "name": "feedify/PhpClient",
   "license": "MIT",
   "autoload": {
     "psr-0": {
