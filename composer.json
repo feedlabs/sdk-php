@@ -3,7 +3,7 @@
   "license": "MIT",
   "autoload": {
     "psr-0": {
-      "feedlabs": "source"
+      "feedlabs": "source/"
     }
   }
 }
