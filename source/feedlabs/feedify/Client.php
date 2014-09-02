@@ -2,7 +2,7 @@
 
 namespace feedify;
 
-class PhpClient {
+class Client {
 
     /**
      * @param string     $url
