@@ -8,7 +8,6 @@ class PhpClient {
      * @param string     $url
      * @param array|null $content
      * @throws \Exception
-     * @return string
      */
     public function send($url, array $content = null) {
         $url = (string) $url;
