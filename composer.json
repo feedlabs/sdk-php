@@ -1,9 +1,9 @@
 {
-  "name": "feedlabs/feedify",
+  "name": "feedlabs/sdk-php",
   "license": "MIT",
   "autoload": {
     "psr-0": {
-      "feedlabs/feedify": "source"
+      "feedlabs/sdk-php": "source"
     }
   }
 }
