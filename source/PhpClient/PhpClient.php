@@ -1,9 +1,9 @@
 <?php
 
-namespace FeedifyPhpClient;
+namespace feedify;
 
 
-class FeedifyPhpClient {
+class PhpClient {
 
     public function __construct() {
     }
