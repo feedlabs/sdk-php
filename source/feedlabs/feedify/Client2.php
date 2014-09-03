@@ -2,7 +2,7 @@
 
 namespace feedlabs\feedify;
 
-class Client {
+class Client2 {
 
     /**
      * @param string     $url

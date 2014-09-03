@@ -3,7 +3,7 @@
   "description": "This is the php sdk for products of feedlabs",
   "version": "0.0.1",
   "type": "library",
-  "keywords": ["feedlabs", "feedify", "sdk"],
+  "keywords": ["Feed Labs", "feedlabs", "feedify", "sdk"],
   "homepage": "http://www.feedlabs.io",
   "authors": [
     {
