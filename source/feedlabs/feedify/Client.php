@@ -2,7 +2,7 @@
 
 namespace feedlabs\feedify;
 
-class XAgent {
+class Client {
 
     /**
      * @param string     $url
