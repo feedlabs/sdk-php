@@ -4,10 +4,22 @@ namespace feedlabs\feedify;
 
 class Client {
 
+    public function __construct() {
+    }
+
+    public function getConnector() {
+    }
+
+    public function FeedPages() {
+        //        $listNew = array();
+        //        $list = getClient("feedpages");
+        //        foreach($list as $feedpage) {
+        //            $listNew[] = new Resource_FeedPage($feedpage);
+        //        }
+    }
+
     /**
-     * @param string     $url
-     * @param array|null $content
-     * @throws \Exception
+     * old implementation. will be deleted when client is ready
      */
     public function send($url, array $content = null) {
         $url = (string) $url;
