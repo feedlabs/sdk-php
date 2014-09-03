@@ -1,22 +1,19 @@
 <?php
 
-namespace feedify;
+namespace feedlabs\feedify;
 
-class Resource_FeedPage extends Resource_Anstract {
+class Resource_FeedEntry extends Resource_Abstract {
 
     public function __construct($entry) {
-        $this_>_entry = $entry;
+        //        $this_>_entry = $entry;
     }
 
     public function getData() {
-
     }
 
     public function delete() {
-
     }
 
-    public function update(){
-
+    public function update() {
     }
 }

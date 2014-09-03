@@ -1,5 +1,29 @@
 {
   "name": "feedlabs/sdk-php",
+  "description": "This is the php sdk for products of feedlabs",
+  "version": "0.0.1",
+  "type": "library",
+  "keywords": ["feedlabs", "feedify", "sdk"],
+  "homepage": "http://www.feedlabs.io",
+  "authors": [
+    {
+      "name": "Chris Stasiak",
+      "email": "chris@feedlabs.io",
+      "homepage": "http://blog.kris-lab.com",
+      "role": "Developer"
+    },
+    {
+      "name": "Marian Sollmann",
+      "email": "marian@feedlabs.io",
+      "homepage": "https://github.com/mariansollmann",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "hello@feedlabs.io",
+    "issues": "https://github.com/feedlabs/sdk-php/issues",
+    "source": "https://github.com/feedlabs/sdk-php"
+  },
   "license": "MIT",
   "autoload": {
     "psr-0": {

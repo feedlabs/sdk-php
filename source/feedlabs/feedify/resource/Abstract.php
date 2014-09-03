@@ -1,11 +1,9 @@
 <?php
 
-namespace feedify;
+namespace feedlabs\feedify;
 
-class Resource_Abstract {
+abstract class Resource_Abstract {
 
-    public function __construct($entry) {
-        $this_>_entry = $entry;
+    public function __construct() {
     }
-
 }
