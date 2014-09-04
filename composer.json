@@ -24,10 +24,14 @@
     "issues": "https://github.com/feedlabs/sdk-php/issues",
     "source": "https://github.com/feedlabs/sdk-php"
   },
+  "require-dev": {
+    "phpunit/phpunit": "~4.1.3"
+  },
   "license": "MIT",
   "autoload": {
     "psr-0": {
-      "feedlabs": "source/"
+      "feedlabs": "source/",
+      "feedlabs\\tests": "tests/"
     }
   }
 }

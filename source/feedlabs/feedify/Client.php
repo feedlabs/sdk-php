@@ -4,21 +4,69 @@ namespace feedlabs\feedify;
 
 class Client {
 
-    public function __construct() {
+    /** @var string */
+    private static $_apiId;
+
+    /** @var string */
+    private static $_apiToken;
+
+    /** @var Request */
+    private static $_request;
+
+    public function __construct($apiId, $apiToken) {
+        self::$_apiId = $apiId;
+        self::$_apiToken = $apiToken;
     }
 
-    public function getConnector() {
+    public function getFeed($id) {
+        return new Resource_Feed($id);
     }
 
-    public function FeedPages() {
+    public function createFeed(array $data) {
+        return self::getRequest()->post('http://www.feed.dev:10111/v1/feed', $data);
+    }
+
+    public function getFeedList() {
         //        $listNew = array();
         //        $list = getClient("feedpages");
         //        foreach($list as $feedpage) {
         //            $listNew[] = new Resource_FeedPage($feedpage);
         //        }
+        echo 'toll';
     }
 
     /**
+     * @return Request
+     */
+    public static function getRequest() {
+        if (!self::$_request) {
+            self::$_request = new Request(self::$_apiId, self::$_apiToken);
+        }
+        return self::$_request;
+    }
+
+    /**
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
+     *
      * old implementation. will be deleted when client is ready
      */
     public function send($url, array $content = null) {
