@@ -1,8 +1,15 @@
 <?php
 
-namespace feedlabs\feedify;
+namespace feedlabs\feedify\Resource;
 
-class Resource_Feed extends Resource_Abstract {
+use feedlabs\feedify\Client;
+use feedlabs\feedify\Helper;
+
+/**
+ * Class Feed
+ * @package feedlabs\feedify\Resource
+ */
+class Feed extends AbstractResource {
 
     /** @var string */
     protected $_id;
@@ -14,6 +21,7 @@ class Resource_Feed extends Resource_Abstract {
      * @param string $id
      */
     public function __construct($id) {
+        // todo move set id to abstract construct
         $this->_id = (string) $id;
         $this->_load();
     }
@@ -35,7 +43,7 @@ class Resource_Feed extends Resource_Abstract {
     public function getEntryList() {
         $entryList = array();
         foreach ($this->_loadEntryList() as $entryId) {
-            $entryList[] = new Resource_Entry($entryId);
+            $entryList[] = new Entry($entryId);
         }
     }
 

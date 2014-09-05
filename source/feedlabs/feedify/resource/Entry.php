@@ -1,8 +1,15 @@
 <?php
 
-namespace feedlabs\feedify;
+namespace feedlabs\feedify\Resource;
 
-class Resource_Entry extends Resource_Abstract {
+use feedlabs\feedify\Client;
+use feedlabs\feedify\Helper;
+
+/**
+ * Class Entry
+ * @package feedlabs\feedify\Resource
+ */
+class Entry extends AbstractResource {
 
     /** @var string */
     protected $_id;
@@ -15,6 +22,7 @@ class Resource_Entry extends Resource_Abstract {
      * @param array|null $data
      */
     public function __construct($id, $data = null) {
+        // todo move set id to abstract construct
         $this->_id = (string) $id;
         $this->_setData($data);
     }
