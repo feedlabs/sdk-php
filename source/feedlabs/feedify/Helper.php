@@ -2,6 +2,10 @@
 
 namespace feedlabs\feedify;
 
+/**
+ * Class Helper
+ * @package feedlabs\feedify
+ */
 class Helper {
 
     /**
@@ -12,6 +16,7 @@ class Helper {
     public static function encode($value) {
         $value = json_encode($value, JSON_PRETTY_PRINT);
         if (json_last_error() > 0) {
+            // @todo introduce new exception
             throw new \Exception('Cannot json_encode value `' . self::_varLine($value) . '`.');
         }
         return $value;
@@ -25,6 +30,7 @@ class Helper {
     public static function decode($value) {
         $value = json_decode((string) $value, true);
         if (json_last_error() > 0) {
+            // @todo introduce new exception
             throw new \Exception('Cannot json_decode value `' . $value . '`.');
         }
         return $value;

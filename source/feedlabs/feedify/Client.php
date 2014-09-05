@@ -2,6 +2,12 @@
 
 namespace feedlabs\feedify;
 
+use feedlabs\feedify\Resource\Feed;
+
+/**
+ * Class Client
+ * @package feedlabs\feedify
+ */
 class Client {
 
     /** @var string */
@@ -19,11 +25,11 @@ class Client {
     }
 
     public function getFeed($id) {
-        return new Resource_Feed($id);
+        return new Feed($id);
     }
 
     public function createFeed(array $data) {
-        return self::getRequest()->post('http://www.feed.dev:10111/v1/feed', $data);
+        self::getRequest()->post('http://www.feed.dev:10111/v1/feed', $data);
     }
 
     public function getFeedList() {
