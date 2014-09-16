@@ -3,7 +3,7 @@
 namespace feedlabs\feedify\Resource;
 
 use feedlabs\feedify\Client;
-use feedlabs\feedify\Helper;
+use feedlabs\feedify\Request;
 
 /**
  * Class Feed
@@ -11,67 +11,37 @@ use feedlabs\feedify\Helper;
  */
 class Feed extends AbstractResource {
 
-    /** @var string */
-    protected $_id;
-
-    /** @var array|null */
+    /** @var array */
     protected $_data;
 
     /**
      * @param string $id
+     * @param array  $data
      */
-    public function __construct($id) {
-        // todo move set id to abstract construct
-        $this->_id = (string) $id;
-        $this->_load();
+    public function __construct($id, array $data) {
+        parent::__construct($id);
+        $this->_data = $data;
     }
 
     /**
-     * @return string
-     */
-    public function getId() {
-        return $this->_id;
-    }
-
-    /**
-     * @return array|null
+     * @return array
      */
     public function getData() {
         return $this->_data;
     }
 
-    public function getEntryList() {
-        $entryList = array();
-        foreach ($this->_loadEntryList() as $entryId) {
-            $entryList[] = new Entry($entryId);
-        }
+    public function update(array $data) {
+        $this->_getRequest()->put('/feed/' . $this->getId(), $data);
     }
 
     public function delete() {
-    }
-
-    protected function _loadEntryList() {
-        // get connector
-        // load data from url "feed.dev:10111/v1/feed/111/entry"
-        // convert json to array // Helper::decode($data);
-        return array('1', '2', '3');
+        $this->_getRequest()->delete('/feed/' . $this->getId());
     }
 
     /**
-     * @param array $data
+     * @return Request
      */
-    protected function _setData(array $data) {
-        $this->_data = (array) $data;
-    }
-
-    protected function _load() {
-        // get connector
-        $connector = Client::getRequest();
-        // load data from url "feed.dev:10111/v1/feed/111"
-        $dataJson = $connector->getContentFromUrl('http://feed.dev:10111/v1/feed/' . $this->getId());
-        // convert json to array // Helper::decode($data);
-        $data = Helper::decode($dataJson);
-        // set data
-        $this->_setData($data);
+    protected function _getRequest() {
+        return Client::getRequest();
     }
 }
