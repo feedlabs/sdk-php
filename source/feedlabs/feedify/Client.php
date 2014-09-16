@@ -10,6 +10,8 @@ use feedlabs\feedify\Resource\Feed;
  */
 class Client {
 
+    CONST API_VERSION = 1;
+
     /** @var string */
     private static $_apiId;
 
@@ -19,26 +21,62 @@ class Client {
     /** @var Request */
     private static $_request;
 
+    /**
+     * @param string $apiId
+     * @param string $apiToken
+     */
     public function __construct($apiId, $apiToken) {
         self::$_apiId = $apiId;
         self::$_apiToken = $apiToken;
     }
 
+    /**
+     * @param $id
+     * @return Feed
+     */
     public function getFeed($id) {
-        return new Feed($id);
+        $id = (string) $id;
+        $data = self::getRequest()->get('/feed/' . $id);
+        return new Feed($id, $data);
     }
 
-    public function createFeed(array $data) {
-        self::getRequest()->post('http://www.feed.dev:10111/v1/feed', $data);
-    }
-
+    /**
+     * @return Feed[]
+     */
     public function getFeedList() {
-        //        $listNew = array();
-        //        $list = getClient("feedpages");
-        //        foreach($list as $feedpage) {
-        //            $listNew[] = new Resource_FeedPage($feedpage);
-        //        }
-        echo 'toll';
+        $return = array();
+        $feedList = self::getRequest()->get('/feed');
+        foreach ($feedList as $feed) {
+            $return[] = new Feed($feed['Id'], array('Data' => $feed['Data']));
+        }
+        return $return;
+    }
+
+    /**
+     * @param array $data
+     * @return string
+     */
+    public function createFeed(array $data) {
+        $result = self::getRequest()->post('/feed', $data);
+        return $result['id'];
+    }
+
+    public function updateFeed($id, array $data) {
+        self::getRequest()->put('/feed/' . $id, $data);
+    }
+
+    public function deleteFeed($id) {
+        self::getRequest()->delete('/feed/' . $id);
+    }
+
+    /**
+     * @param string $feedId
+     * @param array  $data
+     * @return string
+     */
+    public function createEntry($feedId, array $data) {
+        $result = self::getRequest()->post('/feed/' . $feedId . '/entry', $data);
+        return $result['id'];
     }
 
     /**
@@ -49,65 +87,5 @@ class Client {
             self::$_request = new Request(self::$_apiId, self::$_apiToken);
         }
         return self::$_request;
-    }
-
-    /**
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     * old implementation. will be deleted when client is ready
-     */
-    public function send($url, array $content = null) {
-        $url = (string) $url;
-        $sendData = json_encode($content);
-        $headers = array(
-            'Content-type:application/json',
-            'Content-Length: ' . strlen($sendData),
-        );
-
-        $curlConnection = curl_init();
-        curl_setopt($curlConnection, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlConnection, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($curlConnection, CURLOPT_TIMEOUT, 10);
-        curl_setopt($curlConnection, CURLOPT_USERAGENT, 'Mozilla/5.0');
-        curl_setopt($curlConnection, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($curlConnection, CURLOPT_POST, 1);
-        curl_setopt($curlConnection, CURLOPT_URL, $url);
-        curl_setopt($curlConnection, CURLOPT_POSTFIELDS, $sendData);
-
-        $curlError = null;
-        $returnContent = curl_exec($curlConnection);
-        if ($returnContent === false) {
-            $curlError = 'Curl error: `' . curl_error($curlConnection) . '` ';
-        }
-
-        $info = curl_getinfo($curlConnection);
-        if ((int) $info['http_code'] !== 200) {
-            $curlError .= 'HTTP Code: `' . $info['http_code'] . '`';
-        }
-
-        curl_close($curlConnection);
-        if ($curlError) {
-            $curlError = 'Fetching contents from `' . $url . '` failed: `' . $curlError;
-            throw new \Exception($curlError);
-        }
     }
 }

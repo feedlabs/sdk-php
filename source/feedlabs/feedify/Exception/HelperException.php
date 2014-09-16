@@ -3,9 +3,9 @@
 namespace feedlabs\feedify\Exception;
 
 /**
- * Class RequestException
+ * Class HelperException
  * @package feedlabs\feedify\Exception
  */
-class RequestException extends AbstractException {
+class HelperException extends AbstractException {
 
 }

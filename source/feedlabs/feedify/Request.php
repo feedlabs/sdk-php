@@ -14,6 +14,7 @@ class Request {
     CONST METHOD_POST = 2;
     CONST METHOD_PUT = 3;
     CONST METHOD_DELETE = 4;
+    CONST API_URL = 'http://www.feed.dev:10111';
 
     /** @var string */
     protected $_apiId;
@@ -31,27 +32,27 @@ class Request {
     }
 
     /**
-     * @param string $url
+     * @param string $path
      * @return array
      */
-    public function get($url) {
-        return Helper::decode($this->_send(self::METHOD_GET, $url));
+    public function get($path) {
+        return Helper::decode($this->_send(self::METHOD_GET, $path));
     }
 
     /**
-     * @param string $url
-     * @param array $data
+     * @param string $path
+     * @param array  $data
      * @return array
      */
-    public function post($url, $data) {
-        return Helper::decode($this->_send(self::METHOD_POST, $url, $data));
+    public function post($path, $data) {
+        return Helper::decode($this->_send(self::METHOD_POST, $path, $data));
     }
 
-    public function put($url, $data) {
+    public function put($path, $data) {
         // http://stackoverflow.com/questions/3958226/using-put-method-with-php-curl-library
     }
 
-    public function delete($url) {
+    public function delete($path) {
         // http://php.net/manual/en/function.curl-setopt.php#97206
     }
 
@@ -71,13 +72,15 @@ class Request {
 
     /**
      * @param int        $method
-     * @param string     $url
+     * @param string     $path
      * @param array|null $data
      * @return string
      * @throws RequestException
      */
-    protected function _send($method, $url, $data = null) {
-        $url = (string) $url;
+    protected function _send($method, $path, $data = null) {
+        $path = (string) $path;
+        $url = self::API_URL . '/v' . Client::API_VERSION . $path;
+
         $curlConnection = curl_init();
         curl_setopt($curlConnection, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curlConnection, CURLOPT_FOLLOWLOCATION, true);
