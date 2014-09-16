@@ -8,6 +8,20 @@ namespace feedlabs\feedify\Resource;
  */
 abstract class AbstractResource {
 
-    public function __construct() {
+    /** @var string */
+    protected $_id;
+
+    /**
+     * @param string $id
+     */
+    public function __construct($id) {
+        $this->_id = (string) $id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getId() {
+        return $this->_id;
     }
 }
