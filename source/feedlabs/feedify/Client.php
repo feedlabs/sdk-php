@@ -62,9 +62,12 @@ class Client {
     }
 
     public function updateFeed($id, array $data) {
-        self::getRequest()->put('/feed/' . $id, $data);
+        // self::getRequest()->put('/feed/' . $id, $data);
     }
 
+    /**
+     * @param string $id
+     */
     public function deleteFeed($id) {
         self::getRequest()->delete('/feed/' . $id);
     }
