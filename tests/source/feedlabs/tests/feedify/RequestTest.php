@@ -1,12 +1,11 @@
 <?php
 
-namespace feedlabs\tests\feedify;
+namespace Feedlabs\Tests\feedify;
 
-use feedlabs\feedify\Request;
+use Feedlabs\Tests\TestCase;
+use Feedlabs\Feedify\Request;
 
-class RequestTest extends \PHPUnit_Framework_TestCase {
-
-    use \Mocka\MockaTrait;
+class RequestTest extends TestCase {
 
     public function testConstruct() {
         $request = new Request('foo', 'bar');
@@ -16,7 +15,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testGet() {
-        $request = $this->mockClass('feedlabs\feedify\Request')->newInstanceWithoutConstructor();
+        $request = $this->mockClass('Feedlabs\feedify\Request')->newInstanceWithoutConstructor();
         $request->mockMethod('_send')->set('{"111": {"Id": "111","Data": "foo","Entries": {}}}');
 
         $expected = ['111' => ['Id' => '111', 'Data' => 'foo', 'Entries' => []]];
@@ -25,7 +24,7 @@ class RequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testPost() {
-        $request = $this->mockClass('feedlabs\feedify\Request')->newInstanceWithoutConstructor();
+        $request = $this->mockClass('Feedlabs\feedify\Request')->newInstanceWithoutConstructor();
         $request->mockMethod('_send')->set('{"id": "111"}');
 
         $expected = ['id' => '111'];

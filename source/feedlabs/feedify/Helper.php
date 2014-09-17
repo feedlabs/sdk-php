@@ -1,12 +1,12 @@
 <?php
 
-namespace feedlabs\feedify;
+namespace Feedlabs\feedify;
 
-use feedlabs\feedify\Exception\HelperException;
+use Feedlabs\feedify\Exception\HelperException;
 
 /**
  * Class Helper
- * @package feedlabs\feedify
+ * @package Feedlabs\feedify
  */
 class Helper {
 

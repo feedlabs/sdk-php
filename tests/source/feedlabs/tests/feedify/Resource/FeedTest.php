@@ -1,12 +1,11 @@
 <?php
 
-namespace feedlabs\tests\feedify\Resource;
+namespace Feedlabs\Tests\feedify\Resource;
 
-use feedlabs\feedify\Resource\Feed;
+use Feedlabs\Tests\TestCase;
+use Feedlabs\feedify\Resource\Feed;
 
-class Resource_FeedTest extends \PHPUnit_Framework_TestCase {
-
-    use \Mocka\MockaTrait;
+class Resource_FeedTest extends TestCase {
 
     public function testConstruct() {
         $feed = new Feed('foo', array('foo' => 'bar'));
@@ -16,12 +15,12 @@ class Resource_FeedTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testDelete() {
-        $request = $this->mockClass('feedlabs\feedify\Request')->newInstanceWithoutConstructor();
+        $request = $this->mockClass('Feedlabs\feedify\Request')->newInstanceWithoutConstructor();
         $request->mockMethod('delete')->at(0, function ($path) {
             $this->assertSame('/feed/foo111', $path);
         });
 
-        $feed = $this->mockClass('feedlabs\feedify\Resource\Feed')->newInstance(array('foo111', array('bar' => '123')));
+        $feed = $this->mockClass('Feedlabs\feedify\Resource\Feed')->newInstance(array('foo111', array('bar' => '123')));
         $feed->mockMethod('_getRequest')->set($request);
 
         /** @var Feed $feed */
