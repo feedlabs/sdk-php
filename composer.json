@@ -1,5 +1,5 @@
 {
-  "name": "Feedlabs/sdk-php",
+  "name": "feedlabs/sdk-php",
   "description": "This is the php sdk for products of Feed Labs",
   "version": "0.0.1",
   "type": "library",
