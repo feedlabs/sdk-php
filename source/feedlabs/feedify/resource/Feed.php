@@ -30,12 +30,11 @@ class Feed extends AbstractResource {
         return $this->_data;
     }
 
-    public function update(array $data) {
-        $this->_getRequest()->put('/feed/' . $this->getId(), $data);
-    }
-
+    /**
+     * @return array
+     */
     public function delete() {
-        $this->_getRequest()->delete('/feed/' . $this->getId());
+        return $this->_getRequest()->delete('/feed/' . $this->getId());
     }
 
     /**

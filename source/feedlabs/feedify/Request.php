@@ -48,12 +48,15 @@ class Request {
         return Helper::decode($this->_send(self::METHOD_POST, $path, $data));
     }
 
-    public function put($path, $data) {
-        // http://stackoverflow.com/questions/3958226/using-put-method-with-php-curl-library
-    }
+    // public function put($path, $data) {
+    // }
 
+    /**
+     * @param $path
+     * @return array
+     */
     public function delete($path) {
-        // http://php.net/manual/en/function.curl-setopt.php#97206
+        return Helper::decode($this->_send(self::METHOD_DELETE, $path));
     }
 
     /**
@@ -81,50 +84,50 @@ class Request {
         $path = (string) $path;
         $url = self::API_URL . '/v' . Client::API_VERSION . $path;
 
-        $curlConnection = curl_init();
-        curl_setopt($curlConnection, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curlConnection, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($curlConnection, CURLOPT_TIMEOUT, 10);
-        curl_setopt($curlConnection, CURLOPT_USERAGENT, 'Mozilla/5.0');
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 10);
+        curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
 
         $header = array();
         $header[] = 'Content-type:application/json';
 
         switch ($method) {
             case self::METHOD_GET:
-                //do stuff
                 break;
             case self::METHOD_POST:
                 $sendData = Helper::encode($data);
                 $header[] = 'Content-Length: ' . strlen($sendData);
-                curl_setopt($curlConnection, CURLOPT_POST, 1);
-                curl_setopt($curlConnection, CURLOPT_POSTFIELDS, $sendData);
+                curl_setopt($ch, CURLOPT_POST, 1);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $sendData);
                 break;
             case self::METHOD_PUT:
-                //do stuff
+                // do additional stuff
+                // http://stackoverflow.com/questions/3958226/using-put-method-with-php-curl-library
                 break;
             case self::METHOD_DELETE:
-                //do stuff
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
                 break;
             default:
                 throw new RequestException('Unknown request method `' . $method . '`.');
         }
 
-        curl_setopt($curlConnection, CURLOPT_HTTPHEADER, $header);
-        curl_setopt($curlConnection, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        curl_setopt($ch, CURLOPT_URL, $url);
 
         $curlError = null;
-        $content = curl_exec($curlConnection);
+        $content = curl_exec($ch);
         if ($content === false) {
-            $curlError = 'Curl error: `' . curl_error($curlConnection) . '` ';
+            $curlError = 'Curl error: `' . curl_error($ch) . '` ';
         }
 
-        $info = curl_getinfo($curlConnection);
+        $info = curl_getinfo($ch);
         if ((int) $info['http_code'] !== 200) {
             $curlError .= 'HTTP Code: `' . $info['http_code'] . '`';
         }
 
-        curl_close($curlConnection);
+        curl_close($ch);
         if ($curlError) {
             $curlError = 'Fetching contents from `' . $url . '` failed: `' . $curlError;
             throw new RequestException($curlError);
