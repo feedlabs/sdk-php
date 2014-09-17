@@ -11,7 +11,6 @@ use Feedlabs\Feedify\Request;
  */
 class Feed extends AbstractResource {
 
-
     /** @var array */
     protected $_data;
 
