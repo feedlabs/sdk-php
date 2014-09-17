@@ -1,10 +1,10 @@
 <?php
 
-namespace Feedlabs\feedify\Exception;
+namespace Feedlabs\Feedify\Exception;
 
 /**
  * Class AbstractException
- * @package Feedlabs\feedify\Exception
+ * @package Feedlabs\Feedify\Exception
  */
 class AbstractException extends \Exception {
 

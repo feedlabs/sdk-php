@@ -1,12 +1,12 @@
 <?php
 
-namespace Feedlabs\feedify;
+namespace Feedlabs\Feedify;
 
-use Feedlabs\feedify\Resource\Feed;
+use Feedlabs\Feedify\Resource\Feed;
 
 /**
  * Class Client
- * @package Feedlabs\feedify
+ * @package Feedlabs\Feedify
  */
 class Client {
 

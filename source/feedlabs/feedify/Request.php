@@ -1,12 +1,12 @@
 <?php
 
-namespace Feedlabs\feedify;
+namespace Feedlabs\Feedify;
 
-use Feedlabs\feedify\Exception\RequestException;
+use Feedlabs\Feedify\Exception\RequestException;
 
 /**
  * Class Request
- * @package Feedlabs\feedify
+ * @package Feedlabs\Feedify
  */
 class Request {
 

@@ -1,13 +1,13 @@
 <?php
 
-namespace Feedlabs\feedify\Resource;
+namespace Feedlabs\Feedify\Resource;
 
-use Feedlabs\feedify\Client;
-use Feedlabs\feedify\Request;
+use Feedlabs\Feedify\Client;
+use Feedlabs\Feedify\Request;
 
 /**
  * Class Entry
- * @package Feedlabs\feedify\Resource
+ * @package Feedlabs\Feedify\Resource
  */
 class Entry extends AbstractResource {
 
