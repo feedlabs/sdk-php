@@ -1,10 +1,10 @@
 <?php
 
-namespace feedlabs\feedify\Resource;
+namespace Feedlabs\feedify\Resource;
 
 /**
  * Class AbstractResource
- * @package feedlabs\feedify\Resource
+ * @package Feedlabs\feedify\Resource
  */
 abstract class AbstractResource {
 

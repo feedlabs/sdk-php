@@ -1,6 +1,6 @@
 {
-  "name": "feedlabs/sdk-php",
-  "description": "This is the php sdk for products of feedlabs",
+  "name": "Feedlabs/sdk-php",
+  "description": "This is the php sdk for products of Feed Labs",
   "version": "0.0.1",
   "type": "library",
   "keywords": ["Feed Labs", "feedlabs", "feedify", "sdk"],
@@ -31,8 +31,8 @@
   "license": "MIT",
   "autoload": {
     "psr-0": {
-      "feedlabs": "source/",
-      "feedlabs\\tests": "tests/source/"
+      "Feedlabs": "source/",
+      "Feedlabs\\Tests": "tests/source/"
     }
   }
 }
