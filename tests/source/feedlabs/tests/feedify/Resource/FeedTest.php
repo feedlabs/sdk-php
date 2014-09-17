@@ -5,7 +5,7 @@ namespace Feedlabs\Tests\feedify\Resource;
 use Feedlabs\Tests\TestCase;
 use Feedlabs\feedify\Resource\Feed;
 
-class Resource_FeedTest extends TestCase {
+class FeedTest extends TestCase {
 
     public function testConstruct() {
         $feed = new Feed('foo', array('foo' => 'bar'));
