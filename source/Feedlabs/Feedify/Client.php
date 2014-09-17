@@ -26,8 +26,8 @@ class Client {
      * @param string $apiToken
      */
     public function __construct($apiId, $apiToken) {
-        self::$_apiId = $apiId;
-        self::$_apiToken = $apiToken;
+        static::$_apiId = $apiId;
+        static::$_apiToken = $apiToken;
     }
 
     /**
@@ -36,7 +36,7 @@ class Client {
      */
     public function getFeed($id) {
         $id = (string) $id;
-        $data = self::getRequest()->get('/feed/' . $id);
+        $data = static::getRequest()->get('/feed/' . $id);
         return new Feed($id, $data);
     }
 
@@ -45,7 +45,7 @@ class Client {
      */
     public function getFeedList() {
         $return = array();
-        $feedList = self::getRequest()->get('/feed');
+        $feedList = static::getRequest()->get('/feed');
         foreach ($feedList as $feed) {
             $return[] = new Feed($feed['Id'], array('Data' => $feed['Data']));
         }
@@ -57,19 +57,19 @@ class Client {
      * @return string
      */
     public function createFeed(array $data) {
-        $result = self::getRequest()->post('/feed', $data);
+        $result = static::getRequest()->post('/feed', $data);
         return $result['id'];
     }
 
     public function updateFeed($id, array $data) {
-        // self::getRequest()->put('/feed/' . $id, $data);
+        // static::getRequest()->put('/feed/' . $id, $data);
     }
 
     /**
      * @param string $id
      */
     public function deleteFeed($id) {
-        self::getRequest()->delete('/feed/' . $id);
+        static::getRequest()->delete('/feed/' . $id);
     }
 
     /**
@@ -78,7 +78,7 @@ class Client {
      * @return string
      */
     public function createEntry($feedId, array $data) {
-        $result = self::getRequest()->post('/feed/' . $feedId . '/entry', $data);
+        $result = static::getRequest()->post('/feed/' . $feedId . '/entry', $data);
         return $result['id'];
     }
 
@@ -86,9 +86,9 @@ class Client {
      * @return Request
      */
     public static function getRequest() {
-        if (!self::$_request) {
-            self::$_request = new Request(self::$_apiId, self::$_apiToken);
+        if (!static::$_request) {
+            static::$_request = new Request(static::$_apiId, static::$_apiToken);
         }
-        return self::$_request;
+        return static::$_request;
     }
 }
