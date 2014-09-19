@@ -83,6 +83,26 @@ class Client {
     }
 
     /**
+     * @param string $feedId
+     * @param string $entryId
+     * @param array  $data
+     * @return string
+     */
+    public function updateEntry($feedId, $entryId, array $data) {
+        $result = static::getRequest()->put('/feed/' . $feedId . '/entry/' . $entryId, $data);
+        return '1234';
+        return $result['id'];
+    }
+
+    /**
+     * @param string $feedId
+     * @param string $entryId
+     */
+    public function deleteEntry($feedId, $entryId) {
+        static::getRequest()->delete('/feed/' . $feedId . '/entry/' . $entryId);
+    }
+
+    /**
      * @return Request
      */
     public static function getRequest() {
