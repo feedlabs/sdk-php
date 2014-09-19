@@ -26,12 +26,12 @@ class Client {
      * @param string $apiToken
      */
     public function __construct($apiId, $apiToken) {
-        static::$_apiId = $apiId;
-        static::$_apiToken = $apiToken;
+        static::$_apiId = (string) $apiId;
+        static::$_apiToken = (string) $apiToken;
     }
 
     /**
-     * @param $id
+     * @param string $id
      * @return Feed
      */
     public function getFeed($id) {
@@ -44,12 +44,12 @@ class Client {
      * @return Feed[]
      */
     public function getFeedList() {
-        $return = array();
-        $feedList = static::getRequest()->get('/feed');
-        foreach ($feedList as $feed) {
-            $return[] = new Feed($feed['Id'], array('Data' => $feed['Data']));
+        $feedList = array();
+        $result = static::getRequest()->get('/feed');
+        foreach ($result as $feedData) {
+            $feedList[] = new Feed($feedData['Id'], array('Data' => $feedData['Data']));
         }
-        return $return;
+        return $feedList;
     }
 
     /**
@@ -61,8 +61,12 @@ class Client {
         return $result['id'];
     }
 
+    /**
+     * @param string $id
+     * @param array  $data
+     */
     public function updateFeed($id, array $data) {
-        // static::getRequest()->put('/feed/' . $id, $data);
+        static::getRequest()->put('/feed/' . $id, $data);
     }
 
     /**
@@ -86,12 +90,9 @@ class Client {
      * @param string $feedId
      * @param string $entryId
      * @param array  $data
-     * @return string
      */
     public function updateEntry($feedId, $entryId, array $data) {
-        $result = static::getRequest()->put('/feed/' . $feedId . '/entry/' . $entryId, $data);
-        return '1234';
-        return $result['id'];
+        static::getRequest()->put('/feed/' . $feedId . '/entry/' . $entryId, $data);
     }
 
     /**
