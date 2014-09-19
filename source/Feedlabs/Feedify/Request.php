@@ -48,8 +48,14 @@ class Request {
         return Helper::decode($this->_send(self::METHOD_POST, $path, $data));
     }
 
-    // public function put($path, $data) {
-    // }
+    /**
+     * @param string $path
+     * @param array  $data
+     * @return array
+     */
+    public function put($path, $data) {
+         return Helper::decode($this->_send(self::METHOD_PUT, $path, $data));
+     }
 
     /**
      * @param $path
@@ -103,8 +109,10 @@ class Request {
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $sendData);
                 break;
             case self::METHOD_PUT:
-                // do additional stuff
-                // http://stackoverflow.com/questions/3958226/using-put-method-with-php-curl-library
+                $sendData = Helper::encode($data);
+                $header[] = 'Content-Length: ' . strlen($sendData);
+                curl_setopt($ch, CURLOPT_POSTFIELDS, $sendData);
+                curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
                 break;
             case self::METHOD_DELETE:
                 curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
