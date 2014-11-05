@@ -4,23 +4,23 @@ namespace Feedlabs\Feedify\Resource;
 
 use Feedlabs\Feedify\Client;
 use Feedlabs\Feedify\Request;
+use Feedlabs\Feedify\Params;
 
 /**
  * Class Entry
  * @package Feedlabs\Feedify\Resource
  */
-class Entry extends AbstractResource {
+class Entry extends AbstractElement {
 
     /** @var array */
     protected $_data;
 
     /**
-     * @param string $id
-     * @param array  $data
+     * @param Params $data
      */
-    public function __construct($id, array $data) {
-        parent::__construct($id);
-        $this->_data = $data;
+    public function __construct(Params $data) {
+        parent::__construct($data);
+        $this->_data = $data->getString('data');
     }
 
     /**

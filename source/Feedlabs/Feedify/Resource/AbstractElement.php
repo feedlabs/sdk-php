@@ -2,20 +2,22 @@
 
 namespace Feedlabs\Feedify\Resource;
 
+use Feedlabs\Feedify\Params;
+
 /**
  * Class AbstractResource
  * @package Feedlabs\Feedify\Resource
  */
-abstract class AbstractResource {
+abstract class AbstractElement {
 
     /** @var string */
     protected $_id;
 
     /**
-     * @param string $id
+     * @param Params $data
      */
-    public function __construct($id) {
-        $this->_id = (string) $id;
+    public function __construct(Params $data) {
+        $this->_id = $data->getString('id');
     }
 
     /**
