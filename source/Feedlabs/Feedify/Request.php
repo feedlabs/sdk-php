@@ -17,17 +17,12 @@ class Request {
     CONST API_URL = 'http://www.feed.dev:10111';
 
     /** @var string */
-    protected $_apiId;
-
-    /** @var string */
     protected $_apiToken;
 
     /**
-     * @param string $apiId
      * @param string $apiToken
      */
-    public function __construct($apiId, $apiToken) {
-        $this->_apiId = $apiId;
+    public function __construct($apiToken) {
         $this->_apiToken = $apiToken;
     }
 
@@ -54,8 +49,8 @@ class Request {
      * @return array
      */
     public function put($path, $data) {
-         return Helper::decode($this->_send(self::METHOD_PUT, $path, $data));
-     }
+        return Helper::decode($this->_send(self::METHOD_PUT, $path, $data));
+    }
 
     /**
      * @param $path
@@ -63,13 +58,6 @@ class Request {
      */
     public function delete($path) {
         return Helper::decode($this->_send(self::METHOD_DELETE, $path));
-    }
-
-    /**
-     * @return string
-     */
-    public function getApiId() {
-        return $this->_apiId;
     }
 
     /**
@@ -96,8 +84,9 @@ class Request {
         curl_setopt($ch, CURLOPT_TIMEOUT, 10);
         curl_setopt($ch, CURLOPT_USERAGENT, 'Mozilla/5.0');
 
-        $header = array();
-        $header[] = 'Content-type:application/json';
+        $header = [];
+        $header[] = 'apiToken: ' . $this->getApiToken();
+        $header[] = 'Content-type: application/json';
 
         switch ($method) {
             case self::METHOD_GET:

@@ -21,8 +21,8 @@
   ],
   "support": {
     "email": "hello@feedlabs.io",
-    "issues": "https://github.com/feedlabs/sdk-php/issues",
-    "source": "https://github.com/feedlabs/sdk-php"
+    "source": "https://github.com/feedlabs/sdk-php",
+    "issues": "https://github.com/feedlabs/sdk-php/issues"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.1.3",

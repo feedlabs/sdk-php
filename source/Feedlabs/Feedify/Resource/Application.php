@@ -6,22 +6,19 @@ use Feedlabs\Feedify\Client;
 use Feedlabs\Feedify\Params;
 
 /**
- * Class Feed
+ * Class Application
  * @package Feedlabs\Feedify\Resource
  */
-class Feed extends AbstractElement {
+class Application extends AbstractElement {
 
     /** @var string */
     protected $_name;
 
     /** @var string */
-    protected $_channelId;
-
-    /** @var string */
     protected $_description;
 
-    /** @var EntryList */
-    protected $_entryList;
+    /** @var FeedList */
+    protected $_feedList;
 
     /**
      * @param Params $data
@@ -30,8 +27,7 @@ class Feed extends AbstractElement {
         parent::__construct($data);
         $this->_name = ($data->has('name')) ? $data->getString('name') : null;
         $this->_description = ($data->has('description')) ? $data->getString('description') : null;
-        $this->_channelId = ($data->has('channelId')) ? $data->getString('channelId') : null;
-        $this->_entryList = ($data->has('entryList')) ? $data->get('entryList') : null;
+        $this->_feedList = ($data->has('feedList')) ? $data->get('feedList') : null;
     }
 
     /**
@@ -45,7 +41,7 @@ class Feed extends AbstractElement {
     }
 
     /**
-     * @return string
+     * @return string|null
      */
     public function getDescription() {
         if (null === $this->_description) {
@@ -54,28 +50,24 @@ class Feed extends AbstractElement {
         return $this->_description;
     }
 
-    /**
-     * @return string
-     */
-    public function getChannelId() {
-        if (null === $this->_channelId) {
-            $this->_load();
-        }
-        return $this->_channelId;
-    }
-
-    public function getEntryList() {
-        if (null === $this->_entryList) {
+    public function getFeedList() {
+        if (null === $this->_feedList) {
             // todo: load over API
-            $entryList = [];
+            $feedList = [];
             for ($i = 0; $i < 3; $i++) {
-                $entryList[] = ['id' => 'id' . $i, 'data' => 'Data-' . $i, 'createStamp' => time()];
+                $feedList[] = [
+                    'id'          => 'id' . $i,
+                    'name'        => 'Name-' . $i,
+                    'description' => 'description-' . $i,
+                    'channel'     => 'channel' . $i,
+                    'createStamp' => time(),
+                ];
             }
             // //////////////////////////////////////
-            $this->_entryList = new EntryList($entryList);
+            $this->_feedList = new FeedList($feedList);
         }
 
-        return $this->_entryList;
+        return $this->_feedList;
     }
 
     public function delete() {
@@ -83,18 +75,16 @@ class Feed extends AbstractElement {
     }
 
     protected function _load() {
-        // todo: get feed infos over API
+        // todo: get application infos over API
         $data = new Params([
-            'name'        => 'Feed123',
-            'description' => 'description123',
-            'channelId'   => 'channelId-123',
+            'name'        => 'Name-ABC123',
+            'description' => 'description-ABC123',
             'createStamp' => time(),
         ]);
         // //////////////////////////////////////
 
         $this->_name = $data->getString('name');
         $this->_description = $data->getString('description');
-        $this->_channelId = $data->getString('channelId');
         $this->_createStamp = $data->getInt('createStamp');
     }
 }

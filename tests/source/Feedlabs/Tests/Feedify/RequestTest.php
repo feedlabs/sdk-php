@@ -8,9 +8,7 @@ use Feedlabs\Feedify\Request;
 class RequestTest extends TestCase {
 
     public function testConstruct() {
-        $request = new Request('foo', 'bar');
-
-        $this->assertSame('foo', $request->getApiId());
+        $request = new Request('bar');
         $this->assertSame('bar', $request->getApiToken());
     }
 
@@ -29,6 +27,6 @@ class RequestTest extends TestCase {
 
         $expected = ['id' => '111'];
         /** @var Request $request */
-        $this->assertSame($expected, $request->get('www.example.com'));
+        $this->assertSame($expected, $request->post('www.example.com', $expected));
     }
 }
