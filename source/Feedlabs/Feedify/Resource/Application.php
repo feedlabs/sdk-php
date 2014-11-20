@@ -3,7 +3,6 @@
 namespace Feedlabs\Feedify\Resource;
 
 use Feedlabs\Feedify\Client;
-use Feedlabs\Feedify\Request;
 use Feedlabs\Feedify\Params;
 
 /**
@@ -15,26 +14,29 @@ class Application extends AbstractElement {
     /** @var string */
     protected $_name;
 
-    /** @var string|null */
+    /** @var string */
     protected $_description;
 
-    /** @var int */
-    protected $_createStamp;
+    /** @var FeedList */
+    protected $_feedList;
 
     /**
      * @param Params $data
      */
     public function __construct(Params $data) {
         parent::__construct($data);
-        $this->_name = $data->getString('name');
-        $this->_createStamp = $data->getInt('createStamp');
+        $this->_name = ($data->has('name')) ? $data->getString('name') : null;
         $this->_description = ($data->has('description')) ? $data->getString('description') : null;
+        $this->_feedList = ($data->has('feedList')) ? $data->get('feedList') : null;
     }
 
     /**
      * @return string
      */
     public function getName() {
+        if (null === $this->_name) {
+            $this->_load();
+        }
         return $this->_name;
     }
 
@@ -42,38 +44,47 @@ class Application extends AbstractElement {
      * @return string|null
      */
     public function getDescription() {
+        if (null === $this->_description) {
+            $this->_load();
+        }
         return $this->_description;
     }
 
-    /**
-     * @return int
-     */
-    public function getCreated() {
-        return $this->_createStamp;
-    }
-
     public function getFeedList() {
-        // todo: load over API
-        $feedList = [];
-        for ($i = 0; $i < 3; $i++) {
-            $feedList[] = ['id' => 'id' . $i, 'name' => 'Name-' . $i, 'description' => 'description-' . $i, 'createStamp' => time(), 'channel'     => 'channel' . $i];
+        if (null === $this->_feedList) {
+            // todo: load over API
+            $feedList = [];
+            for ($i = 0; $i < 3; $i++) {
+                $feedList[] = [
+                    'id'          => 'id' . $i,
+                    'name'        => 'Name-' . $i,
+                    'description' => 'description-' . $i,
+                    'channel'     => 'channel' . $i,
+                    'createStamp' => time(),
+                ];
+            }
+            // //////////////////////////////////////
+            $this->_feedList = new FeedList($feedList);
         }
 
-        return new FeedList($feedList);
+        return $this->_feedList;
     }
 
-    /**
-     * @return array
-     */
     public function delete() {
         // todo: add delete
-        // return $this->_getRequest()->delete('/feed/' . $this->getId());
     }
 
-    /**
-     * @return Request
-     */
-    protected function _getRequest() {
-        return Client::getRequest();
+    protected function _load() {
+        // todo: get application infos over API
+        $data = new Params([
+            'name'        => 'Name-ABC123',
+            'description' => 'description-ABC123',
+            'createStamp' => time(),
+        ]);
+        // //////////////////////////////////////
+
+        $this->_name = $data->getString('name');
+        $this->_description = $data->getString('description');
+        $this->_createStamp = $data->getInt('createStamp');
     }
 }

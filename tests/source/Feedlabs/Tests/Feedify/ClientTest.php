@@ -27,21 +27,6 @@ class ClientTest extends TestCase {
         $this->assertSame($data, $feed->getData());
     }
 
-    public function testGetFeedList() {
-    }
-
-    public function testCreateFeed() {
-    }
-
-    public function testUpdateFeed() {
-    }
-
-    public function testDeleteFeed() {
-    }
-
-    public function testCreateEntry() {
-    }
-
     public function testGetRequest() {
         $id = 'foo123';
         $token = 'bar123';
